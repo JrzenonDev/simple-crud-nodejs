@@ -9,12 +9,18 @@ const app = express();
 app.engine("handlebars", handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// css, js and img
+app.use('/css', express.static('css'));
+app.use('/js', express.static('js'));
+app.use('/img', express.static('img'));
+
+
 // routes and template
-app.get("/:id?", function(req, res) {
+app.get("/", function(req, res) {
   // ?: torna o id opcional
   //res.send("Essa é minha página inicial");
   //res.sendFile(__dirname+"/index.html");
-  res.render('index', {id:req.params.id});
+  res.render('index');
 });
 
 // start server
