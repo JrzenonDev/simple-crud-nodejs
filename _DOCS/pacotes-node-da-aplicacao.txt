@@ -1,0 +1,5 @@
+express: Pacote complete para o node
+nodemon: serve para executar o servidor de maneira que ele atualize constantemente.
+mysql: para trabalhar com o banco de dados mysql no node
+body-parser: para receber os dados de forma mais prática dos formulários
+express-handlebars: para trabalhar com templates
