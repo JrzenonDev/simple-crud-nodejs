@@ -4,6 +4,16 @@ const mysql = require('mysql');
 const handlebars = require('express-handlebars');
 
 const app = express();
+const urlencondeParser = bodyParser.urlencoded({extended: false});
+const sql = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  port: 3306
+});
+
+sql.query("use crudnodejs");
+
 
 //template engine
 app.engine("handlebars", handlebars({defaultLayout: 'main'}));
@@ -21,6 +31,15 @@ app.get("/", function(req, res) {
   //res.send("Essa é minha página inicial");
   //res.sendFile(__dirname+"/index.html");
   res.render('index');
+});
+
+app.get("/inserir", function(req, res) {
+  res.render("inserir");
+});
+
+app.post("/controllerForm", urlencondeParser, function(req, res){
+  sql.query("insert into user values (?, ?, ?)", [req.body.id, req.body.name, req.body.age]);
+  res.render("controllerForm", {name: req.body.name});
 });
 
 // start server
