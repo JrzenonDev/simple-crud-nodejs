@@ -33,6 +33,7 @@ app.get("/", function(req, res) {
   res.render('index');
 });
 
+// insert routes
 app.get("/inserir", function(req, res) {
   res.render("inserir");
 });
@@ -42,6 +43,7 @@ app.post("/controllerForm", urlencondeParser, function(req, res){
   res.render("controllerForm", {name: req.body.name});
 });
 
+// select routes
 app.get("/select/:id?", function(req, res) {
   if(!req.params.id) {
     sql.query("select * from user order by id asc", function(err, results, fields) {
@@ -52,6 +54,12 @@ app.get("/select/:id?", function(req, res) {
       res.render("select", { data:results });
     });
   }
+});
+
+// delete routes
+app.get("/deletar/:id", function(req, res) {
+  sql.query("delete from user where id = ?", [req.params.id]);
+  res.render("deletar");
 });
 
 // start server
