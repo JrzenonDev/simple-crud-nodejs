@@ -42,6 +42,18 @@ app.post("/controllerForm", urlencondeParser, function(req, res){
   res.render("controllerForm", {name: req.body.name});
 });
 
+app.get("/select/:id?", function(req, res) {
+  if(!req.params.id) {
+    sql.query("select * from user order by id asc", function(err, results, fields) {
+      res.render("select", { data:results });
+    });
+  } else {
+    sql.query("select * from user where id = ? order by id asc", [req.params.id], function(err, results, fields) {
+      res.render("select", { data:results });
+    });
+  }
+});
+
 // start server
 app.listen(3000, function(req, res) {
   console.log('Servidor está rodando');
